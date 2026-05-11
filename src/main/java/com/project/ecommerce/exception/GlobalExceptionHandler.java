@@ -1,6 +1,5 @@
 package com.project.ecommerce.exception;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,17 +24,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(
-            Exception ex) {
+    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
+
+        ex.printStackTrace(); // 🔥 SHOW REAL ERROR IN CONSOLE
 
         ErrorResponse error = new ErrorResponse(
-                "Something went wrong",
+                ex.getMessage(),   // 🔥 show real message
                 HttpStatus.INTERNAL_SERVER_ERROR.value()
         );
 
-        return new ResponseEntity<>(
-                error,
-                HttpStatus.INTERNAL_SERVER_ERROR
-        );
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

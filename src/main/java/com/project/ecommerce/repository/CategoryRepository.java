@@ -6,7 +6,6 @@ import com.project.ecommerce.entity.Category;
 
 import java.util.Optional;
 
-
 public interface CategoryRepository extends JpaRepository<Category,Long>
 {
     Optional<Category> findByName(String name);

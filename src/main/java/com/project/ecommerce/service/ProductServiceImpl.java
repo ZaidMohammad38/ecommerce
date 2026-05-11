@@ -55,7 +55,6 @@ public class ProductServiceImpl implements ProductService {
 		return repository.findByNameContainingIgnoreCase(name);
 	}
 
-
 	@Override
 	public List<Product> getByCategory(Long categoryId)
 	{

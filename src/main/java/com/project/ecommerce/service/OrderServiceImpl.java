@@ -1,15 +1,13 @@
 package com.project.ecommerce.service;
 
-
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.project.ecommerce.entity.OrderEntity;
+import com.project.ecommerce.entity.Order;
 import com.project.ecommerce.entity.Product;
 import com.project.ecommerce.repository.OrderRepository;
 import com.project.ecommerce.repository.ProductRepository;
-
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -24,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderEntity placeOrder(OrderEntity order) {
+    public Order placeOrder(Order order) {
 
         Product product = productRepository
                 .findById(order.getProduct().getId())
@@ -42,21 +40,21 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderEntity> getAllOrders() {
+    public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
     @Override
-    public List<OrderEntity> getOrdersByUser(Long userId) {
+    public List<Order> getOrdersByUser(Long userId) {
         return orderRepository.findByUserId(userId);
     }
 
     @Override
-    public OrderEntity updateStatus(
+    public Order updateStatus(
             Long id,
             String status) {
 
-        OrderEntity order = orderRepository
+        Order order = orderRepository
                 .findById(id)
                 .orElseThrow(() ->
                         new RuntimeException("Order not found"));

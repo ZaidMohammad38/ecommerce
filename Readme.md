@@ -1,207 +1,639 @@
-# Ecommerce
+# 🛒 Spring Boot E-Commerce Backend Project
 
-A Spring Boot ecommerce application with REST APIs for users, admins, products, categories, carts, wishlists, reviews, and orders. The project also includes a simple static storefront dashboard served from `src/main/resources/static`.
+## 📌 Project Overview
 
-## Tech Stack
+This project is a complete E-Commerce Backend Application developed using:
 
-- Java 17
-- Spring Boot 4.0.5
-- Spring Web MVC
-- Spring Data JPA
-- Thymeleaf
-- MySQL
-- Lombok
-- Maven Wrapper
+* Spring Boot
+* Spring MVC
+* Spring Data JPA
+* Hibernate
+* MySQL
+* Swagger OpenAPI
+* Razorpay Payment Gateway
+* Docker
+* Java Mail Sender
 
-## Features
+The application provides REST APIs for managing:
 
-- User registration and login
-- Admin registration and login
-- Product and category management
-- Product search and category filtering
-- Cart and wishlist management
-- Order placement and status updates
-- Product reviews and average ratings
-- Static browser UI for catalog, cart, wishlist, orders, and catalog management
+* Categories
+* Products
+* Users
+* Orders
+* Reviews
+* Wishlist
+* Cart
+* Image Upload
+* Payments
+* Email Sending
 
-## Project Structure
+This project is designed to simulate a real-world e-commerce backend system.
+
+---
+
+# 🚀 Features
+
+## ✅ User Features
+
+* User Registration
+* User Login
+* Product Browsing
+* Product Search
+* Pagination & Sorting
+* Add to Cart
+* Wishlist Management
+* Place Orders
+* Add Reviews & Ratings
+* Upload Product Images
+* Email Notifications
+* Online Payment Integration
+
+---
+
+## ✅ Admin Features
+
+* Manage Categories
+* Manage Products
+* Manage Orders
+* Update Order Status
+* View Users
+* Swagger API Documentation
+
+---
+
+# 🛠️ Technologies Used
+
+| Technology       | Purpose                 |
+| ---------------- | ----------------------- |
+| Java 17          | Programming Language    |
+| Spring Boot      | Backend Framework       |
+| Spring MVC       | REST APIs               |
+| Spring Data JPA  | Database Operations     |
+| Hibernate        | ORM Framework           |
+| MySQL            | Database                |
+| Swagger OpenAPI  | API Documentation       |
+| Razorpay         | Payment Gateway         |
+| Docker           | Containerization        |
+| Maven            | Dependency Management   |
+| Lombok           | Reduce Boilerplate Code |
+| Java Mail Sender | Email Sending           |
+
+---
+
+# 📁 Project Structure
 
 ```text
-src/main/java/com/project/ecommerce
-+-- controller     # REST controllers and route definitions
-+-- entity         # JPA entities
-+-- exception      # Global exception handling
-+-- repository     # Spring Data repositories
-+-- service        # Business logic interfaces and implementations
-
-src/main/resources
-+-- application.properties
-+-- static         # HTML, CSS, and JavaScript frontend
+src/main/java/com/ecommerce
+│
+├── controller
+│   ├── CategoryController.java
+│   ├── ProductController.java
+│   ├── UserController.java
+│   ├── OrderController.java
+│   ├── ReviewController.java
+│   ├── WishlistController.java
+│   ├── UploadController.java
+│   ├── EmailController.java
+│   └── PaymentController.java
+│
+├── entity
+│   ├── Category.java
+│   ├── Product.java
+│   ├── User.java
+│   ├── OrderEntity.java
+│   ├── Review.java
+│   ├── Wishlist.java
+│   └── Cart.java
+│
+├── repository
+│   ├── CategoryRepository.java
+│   ├── ProductRepository.java
+│   ├── UserRepository.java
+│   ├── OrderRepository.java
+│   ├── ReviewRepository.java
+│   ├── WishlistRepository.java
+│   └── CartRepository.java
+│
+├── service
+│   ├── CategoryService.java
+│   ├── ProductService.java
+│   ├── UserService.java
+│   ├── OrderService.java
+│   ├── ReviewService.java
+│   ├── WishlistService.java
+│   ├── CartService.java
+│   ├── FileUploadService.java
+│   ├── EmailService.java
+│   └── PaymentService.java
+│
+├── exception
+│   ├── ErrorResponse.java
+│   └── GlobalExceptionHandler.java
+│
+├── config
+│   ├── OpenApiConfig.java
+│   └── RazorpayConfig.java
+│
+└── EcommerceProjectApplication.java
 ```
 
-## Prerequisites
+---
 
-- Java 17 or newer
-- MySQL running locally
-- A MySQL user matching the credentials in `src/main/resources/application.properties`
+# ⚙️ Setup Instructions
 
-Default database configuration:
+## ✅ Step 1: Clone Repository
+
+```bash
+git clone https://github.com/yourusername/ecommerce-project.git
+```
+
+---
+
+## ✅ Step 2: Open Project
+
+Open project in:
+
+* Eclipse
+* Spring Tool Suite (STS)
+* IntelliJ IDEA
+* VS Code
+
+---
+
+## ✅ Step 3: Configure MySQL
+
+Create database:
+
+```sql
+CREATE DATABASE ecommerce;
+```
+
+---
+
+## ✅ Step 4: Configure application.properties
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce?createDatabaseIfNotExist=true
-spring.datasource.username=your username
-spring.datasource.password=your password
+spring.application.name=Ecommerce_project
+
+server.port=8080
+
+spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce
+spring.datasource.username=root
+spring.datasource.password=root
+
 spring.jpa.hibernate.ddl-auto=update
+
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+# Swagger
+springdoc.api-docs.enabled=true
+springdoc.swagger-ui.enabled=true
+
+# File Upload
+spring.servlet.multipart.enabled=true
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
+
+# Mail Configuration
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=yourgmail@gmail.com
+spring.mail.password=your_app_password
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+# Razorpay
+razorpay.key=your_key
+razorpay.secret=your_secret
 ```
 
-Update these values if your local MySQL credentials are different.
+---
 
-## Run Locally
+# 📦 Maven Dependencies
 
-From the project root:
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
 
-```bash
-./mvnw spring-boot:run
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.5.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <scope>runtime</scope>
+</dependency>
+
+<dependency>
+    <groupId>com.razorpay</groupId>
+    <artifactId>razorpay-java</artifactId>
+    <version>1.4.4</version>
+</dependency>
 ```
 
-On Windows PowerShell:
+---
 
-```powershell
-.\mvnw.cmd spring-boot:run
-```
+# ▶️ Running the Project
 
-The application starts on:
+## ✅ Run Application
+
+Run:
 
 ```text
-http://localhost:8080
+EcommerceProjectApplication.java
 ```
 
-Open the same URL in a browser to use the static storefront UI.
-
-## Build
+OR
 
 ```bash
-./mvnw clean package
+mvn spring-boot:run
 ```
 
-On Windows PowerShell:
+---
 
-```powershell
-.\mvnw.cmd clean package
+# 📖 Swagger Documentation
+
+## Swagger UI
+
+```text
+http://localhost:8080/swagger-ui/index.html
 ```
 
-## Run Tests
+## OpenAPI Docs
+
+```text
+http://localhost:8080/v3/api-docs
+```
+
+---
+
+# 📌 API Endpoints
+
+# 🗂️ Category APIs
+
+| Method | Endpoint             | Description        |
+| ------ | -------------------- | ------------------ |
+| POST   | /api/categories      | Add Category       |
+| GET    | /api/categories      | Get All Categories |
+| GET    | /api/categories/{id} | Get Category By Id |
+| DELETE | /api/categories/{id} | Delete Category    |
+
+---
+
+# 📱 Product APIs
+
+| Method | Endpoint             | Description       |
+| ------ | -------------------- | ----------------- |
+| POST   | /api/products        | Add Product       |
+| GET    | /api/products        | Get All Products  |
+| GET    | /api/products/{id}   | Get Product By Id |
+| DELETE | /api/products/{id}   | Delete Product    |
+| GET    | /api/products/search | Search Products   |
+
+---
+
+# 👤 User APIs
+
+| Method | Endpoint            | Description   |
+| ------ | ------------------- | ------------- |
+| POST   | /api/users/register | Register User |
+| POST   | /api/users/login    | User Login    |
+| GET    | /api/users          | Get All Users |
+
+---
+
+# 🛒 Cart APIs
+
+| Method | Endpoint           | Description      |
+| ------ | ------------------ | ---------------- |
+| POST   | /api/cart          | Add To Cart      |
+| GET    | /api/cart/{userId} | Get User Cart    |
+| DELETE | /api/cart/{id}     | Remove Cart Item |
+
+---
+
+# 📦 Order APIs
+
+| Method | Endpoint              | Description         |
+| ------ | --------------------- | ------------------- |
+| POST   | /api/orders           | Place Order         |
+| GET    | /api/orders           | Get All Orders      |
+| GET    | /api/orders/user/{id} | Get User Orders     |
+| PUT    | /api/orders/{id}      | Update Order Status |
+
+---
+
+# ❤️ Wishlist APIs
+
+| Method | Endpoint               | Description     |
+| ------ | ---------------------- | --------------- |
+| POST   | /api/wishlist          | Add Wishlist    |
+| GET    | /api/wishlist/{userId} | Get Wishlist    |
+| DELETE | /api/wishlist/{id}     | Remove Wishlist |
+
+---
+
+# ⭐ Review APIs
+
+| Method | Endpoint                         | Description    |
+| ------ | -------------------------------- | -------------- |
+| POST   | /api/reviews                     | Add Review     |
+| GET    | /api/reviews/{productId}         | Get Reviews    |
+| GET    | /api/reviews/average/{productId} | Average Rating |
+| DELETE | /api/reviews/{id}                | Delete Review  |
+
+---
+
+# 🖼️ Upload APIs
+
+| Method | Endpoint    | Description  |
+| ------ | ----------- | ------------ |
+| POST   | /api/upload | Upload Image |
+
+---
+
+# 📧 Email APIs
+
+| Method | Endpoint   | Description |
+| ------ | ---------- | ----------- |
+| POST   | /api/email | Send Email  |
+
+---
+
+# 💳 Payment APIs
+
+| Method | Endpoint                  | Description           |
+| ------ | ------------------------- | --------------------- |
+| POST   | /api/payment/create-order | Create Razorpay Order |
+
+---
+
+# 🔍 Search, Pagination & Sorting
+
+## Example
+
+```text
+GET /api/products/search?keyword=phone&page=0&size=5&sortBy=price
+```
+
+| Parameter | Description            |
+| --------- | ---------------------- |
+| keyword   | Product search keyword |
+| page      | Page number            |
+| size      | Records per page       |
+| sortBy    | Sorting field          |
+
+---
+
+# 🖼️ Image Upload
+
+## Upload Product Image
+
+```text
+POST /api/upload
+```
+
+Use:
+
+```text
+multipart/form-data
+```
+
+Access image:
+
+```text
+http://localhost:8080/images/filename.jpg
+```
+
+---
+
+# 📧 Email Sending
+
+## Example
+
+```text
+POST /api/email
+```
+
+Parameters:
+
+```text
+to
+subject
+text
+```
+
+---
+
+# 💳 Razorpay Integration
+
+## Create Payment Order
+
+```text
+POST /api/payment/create-order?amount=500
+```
+
+---
+
+# 🐳 Docker Support
+
+## Build Jar
 
 ```bash
-./mvnw test
+mvn clean package
 ```
 
-On Windows PowerShell:
+---
 
-```powershell
-.\mvnw.cmd test
+## Dockerfile
+
+```dockerfile
+FROM eclipse-temurin:17
+
+WORKDIR /app
+
+COPY target/Ecommerce_project-0.0.1-SNAPSHOT.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","app.jar"]
 ```
 
-## API Endpoints
+---
 
-### Users
-
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| POST | `/api/users/register` | Register a user |
-| POST | `/api/users/login` | Login a user |
-
-### Admins
-
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| POST | `/api/admin/register` | Register an admin |
-| POST | `/api/admin/login` | Login an admin |
-
-### Categories
-
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| POST | `/api/categories` | Create a category |
-| GET | `/api/categories` | Get all categories |
-| GET | `/api/categories/{id}` | Get a category by ID |
-| DELETE | `/api/categories/{id}` | Delete a category |
-
-### Products
-
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| POST | `/api/products` | Create a product |
-| GET | `/api/products` | Get all products |
-| GET | `/api/products/{id}` | Get a product by ID |
-| PUT | `/api/products/{id}` | Update a product |
-| GET | `/api/products/search/{name}` | Search products by name |
-| GET | `/api/products/category/{categoryId}` | Get products by category |
-| DELETE | `/api/products/{id}` | Delete a product |
-
-### Cart
-
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| POST | `/api/cart` | Add an item to cart |
-| GET | `/api/cart/{userId}` | Get a user's cart |
-| DELETE | `/api/cart/item/{cartId}` | Remove an item from cart |
-| DELETE | `/api/cart/clear/{userId}` | Clear a user's cart |
-
-### Wishlist
-
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| POST | `/api/wishlist` | Add an item to wishlist |
-| GET | `/api/wishlist/{userId}` | Get a user's wishlist |
-| DELETE | `/api/wishlist/{id}` | Remove an item from wishlist |
-
-### Orders
-
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| POST | `/api/orders` | Place an order |
-| GET | `/api/orders` | Get all orders |
-| GET | `/api/orders/user/{userId}` | Get orders by user |
-| PUT | `/api/orders/{id}?status=PLACED` | Update order status |
-
-### Reviews
-
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| POST | `/api/reviews` | Create a review |
-| GET | `/api/reviews/{productId}` | Get reviews for a product |
-| GET | `/api/reviews/average/{productId}` | Get average rating for a product |
-| DELETE | `/api/reviews/{id}` | Delete a review |
-
-## Example Requests
-
-Create a category:
+## Build Docker Image
 
 ```bash
-curl -X POST http://localhost:8080/api/categories \
-  -H "Content-Type: application/json" \
-  -d "{\"name\":\"Electronics\",\"description\":\"Devices and accessories\"}"
+docker build -t ecommerce-app .
 ```
 
-Create a product:
+---
+
+## Run Docker Container
 
 ```bash
-curl -X POST http://localhost:8080/api/products \
-  -H "Content-Type: application/json" \
-  -d "{\"name\":\"Headphones\",\"description\":\"Wireless headphones\",\"price\":1999,\"stock\":20,\"imageUrl\":\"https://example.com/headphones.jpg\",\"category\":{\"id\":1}}"
+docker run -p 8080:8080 ecommerce-app
 ```
 
-Place an order:
+---
+
+# 🧪 Testing APIs
+
+APIs can be tested using:
+
+* Swagger UI
+* Postman
+* Thunder Client
+
+---
+
+# ⚠️ Common Issues & Fixes
+
+## Swagger 500 Error
+
+### Cause
+
+Circular entity relationships.
+
+### Fix
+
+Use:
+
+```java
+@JsonIgnoreProperties
+```
+
+---
+
+## MySQL Connection Error
+
+Check:
+
+```properties
+spring.datasource.username
+spring.datasource.password
+```
+
+---
+
+## File Upload Error
+
+Enable multipart support.
+
+---
+
+## Razorpay Authentication Failed
+
+Use correct API key and secret.
+
+---
+
+# 📚 Concepts Learned
+
+* Spring Boot
+* REST APIs
+* CRUD Operations
+* Spring MVC
+* JPA & Hibernate
+* Exception Handling
+* Swagger Documentation
+* Pagination & Sorting
+* File Upload
+* Email Integration
+* Payment Gateway
+* Docker
+* Maven
+
+---
+
+# 🔮 Future Enhancements
+
+* JWT Authentication
+* Spring Security
+* React Frontend
+* Admin Dashboard
+* Payment Verification
+* Order Tracking
+* Cloud Deployment
+* AWS Deployment
+* CI/CD Pipeline
+* Redis Caching
+* Microservices
+
+---
+
+# 👨‍💻 Author
+
+## Mohd Khizar Rasheed
+
+Associate Software Engineer | Full Stack Developer
+
+### Skills
+
+* Java
+* Spring Boot
+* HTML
+* CSS
+* JavaScript
+* React.js
+* MySQL
+* Docker
+
+---
+
+# 📌 Git Commands
+
+## Initial Push
 
 ```bash
-curl -X POST http://localhost:8080/api/orders \
-  -H "Content-Type: application/json" \
-  -d "{\"quantity\":1,\"totalPrice\":1999,\"status\":\"PLACED\",\"user\":{\"id\":1},\"product\":{\"id\":1}}"
+git init
+
+git add .
+
+git commit -m "Initial commit for ecommerce backend project"
+
+git branch -M main
+
+git remote add origin https://github.com/yourusername/repository-name.git
+
+git push -u origin main
 ```
 
-## Notes
+---
 
-- Hibernate is configured with `ddl-auto=update`, so tables are created or updated automatically when the app starts.
-- The frontend uses relative API URLs, so it works when served by the Spring Boot application at `http://localhost:8080`.
-- The static storefront assumes at least one user ID exists or can be registered from the UI.
+# ⭐ Conclusion
+
+This E-Commerce Backend Project demonstrates real-world backend development using Spring Boot.
+
+The project includes:
+
+✅ CRUD APIs
+✅ Swagger Documentation
+✅ Payment Integration
+✅ Dockerization
+✅ Email Sending
+✅ File Upload
+✅ Pagination & Sorting
+
+This project can be further extended into a complete production-ready E-Commerce platform.

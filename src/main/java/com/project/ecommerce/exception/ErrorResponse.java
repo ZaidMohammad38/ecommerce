@@ -1,6 +1,5 @@
 package com.project.ecommerce.exception;
 
-
 public class ErrorResponse {
 
     private String message;//something went wrong
@@ -29,6 +28,5 @@ public class ErrorResponse {
     public void setStatus(int status) {
         this.status = status;
     }
-
 
 }

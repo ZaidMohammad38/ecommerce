@@ -27,7 +27,6 @@ public class AdminController
     }
     
 
-
     @PostMapping("/login") //localhost:8080/api/admin/login
     public String login(@RequestBody Map<String, String> data) {
         return service.login(

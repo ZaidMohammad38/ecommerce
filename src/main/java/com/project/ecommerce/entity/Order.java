@@ -1,5 +1,7 @@
 package com.project.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-public class OrderEntity {
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,14 +23,14 @@ public class OrderEntity {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"orders"})
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public OrderEntity() {
+    public Order() {
     }
 
     public Long getId() {

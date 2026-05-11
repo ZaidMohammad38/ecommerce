@@ -1,5 +1,7 @@
 package com.project.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties({"products","hibernateLazyInitializer","handler"})
     private Category category;
    
 
@@ -62,8 +65,8 @@ public class Product {
             return stock;
         }
 
-        public Integer setStock(Integer stock) {
-            return this.stock = stock;
+        public void setStock(Integer stock) {
+            this.stock = stock;
         }
 
         public String getImageUrl() {
